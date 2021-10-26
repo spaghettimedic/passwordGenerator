@@ -1,16 +1,6 @@
-// Assignment code here
-
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
-
-const randomFunc = {
-  lower: randomLower,
-  upper: randomUpper,
-  number: randomNumber,
-  symbol: randomSymbol
-};
 
 // Generator functions
 function randomLower() {
@@ -30,70 +20,73 @@ function randomSymbol() {
   return symbols[Math.floor(Math.random() * symbols.length)];
 };
 
-var getLength = function (length) {
-  var length = "";
-  while (length === "" || length === null) {
-    length = prompt("How long would you like your password to be? It must be between 8 and 128 characters in length.");
-  }
-  if (length < 8 || length > 128) {
-    window.alert("Your password length must be between 8 and 128 characters. Please try again.");
-    return getLength();
-  }
-  if (isNaN(length)) {
-    window.alert("Enter numbers only please.");
-    return getLength();
-  }
-  console.log("Your password will be " + length + " characters in length.");
-  return +length;
-};
-
 
 // Write password to the #password input
 function writePassword() {
-
-  getLength();
-
-  var confirmLower = window.confirm("Would you like to include lower case letters?");
-  if (confirmLower) {
-    randomLower();
-    console.log(randomLower());
-  };
-
-  var confirmUpper = window.confirm("Would you like to include upper case letters?");
-  if (confirmUpper) {
-    randomUpper();
-    console.log(randomUpper());
-  };
-
-  var confirmNumber = window.confirm("Would you like to include numbers?");
-  if (confirmNumber) {
-    randomNumber();
-    console.log(randomNumber());
-  };
-  
-  var confirmSymbol = window.confirm("Would you like to include symbols?");
-  if (confirmSymbol) {
-    randomSymbol();
-    console.log(randomSymbol());
-  };
-
-  if (confirmLower, confirmUpper, confirmNumber, confirmSymbol === false ) {
-    window.alert("You did not choose any characters to include. Please try again.");
-    writePassword();
-  }
-  console.log(generatePassword());
-};
-
-  function generatePassword(lower, upper, number, symbol, length) {
-    let passwordText = '';
-  };
+  var randFuncs = [];
+  var length = getLength();
   
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
+  var confirmLower = window.confirm("Would you like to include lower case letters?");
+  if (confirmLower) {
+    randFuncs.push(randomLower);
+  };
 
+  var confirmUpper = window.confirm("Would you like to include upper case letters?");
+  if (confirmUpper) {
+    randFuncs.push(randomUpper);
+  };
+
+  var confirmNumber = window.confirm("Would you like to include numbers?");
+  if (confirmNumber) {
+    randFuncs.push(randomNumber);
+  };
+  
+  var confirmSymbol = window.confirm("Would you like to include symbols?");
+  if (confirmSymbol) {
+    randFuncs.push(randomSymbol);
+  };
+
+  if (confirmLower, confirmUpper, confirmNumber, confirmSymbol === false ) {
+    window.alert("You did not choose any characters to include. Please try again.");
+    writePassword();
+  }
+  console.log(randFuncs);
+  return randFuncs;
+
+  function getLength() {
+    var passLength = "";
+    while (passLength === "" || passLength === null) {
+      passLength = prompt("How long would you like your password to be? It must be between 8 and 128 characters in length.");
+    }
+    if (passLength < 8 || passLength > 128) {
+      window.alert("Your password length must be between 8 and 128 characters. Please try again.");
+      return getLength();
+    }
+    if (isNaN(passLength)) {
+      window.alert("Enter numbers only please.");
+      return getLength();
+    }
+    console.log("Your password will be " + passLength + " characters in length.");
+    return +passLength;
+  };
+  
+  function generatePassword(length, randFuncs) {
+    let passwordValue = '';
+    for (let i = 0; i < length; i++) {
+      randFuncs = randFuncs[Math.floor(Math.random() * randFuncs.length)]();
+
+      // passwordValue = ;
+    }
+    console.log(randFuncs);
+    console.log(passwordValue);
+    return passwordValue;
+  };
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
