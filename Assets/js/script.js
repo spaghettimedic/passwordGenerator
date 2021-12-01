@@ -22,7 +22,7 @@ function generatePassword() {
   const includeNumbers = confirm("Would you like to include numbers?");
   const includeSymbols = confirm("Would you like to include symbols?");
   // check if no characters selected
-  if (includeLowerCase ===false && includeUpperCase === false && includeNumbers === false && includeSymbols === false) {
+  if (includeLowerCase === false && includeUpperCase === false && includeNumbers === false && includeSymbols === false) {
     alert("You did not choose any characters to include. Please try again.");
     return generatePassword();
   };
